@@ -68,6 +68,16 @@ public class Transferencia {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+	public Double getImporte() {
+		return null;
+	}
+
+
+	public Cliente getOrdenante() {
+		return null;
+	}
 	
 }
 

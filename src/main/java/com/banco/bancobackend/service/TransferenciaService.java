@@ -1,12 +1,13 @@
 package com.banco.bancobackend.service;
 import org.springframework.stereotype.Service;
 
-
+import com.banco.bancobackend.model.Cliente;
 import com.banco.bancobackend.model.Transferencia;
 
 @Service
 public class TransferenciaService {
     private TransferenciaService transferenciaService;
+	private Object transferenciaRepository;
 
     public TransferenciaService(TransferenciaService transferenciaService) {
         this.transferenciaService = transferenciaService;
@@ -23,6 +24,20 @@ public class TransferenciaService {
         } else {
             return false; 
         }
+    }
+    
+    public Transferencia guardar (Transferencia transferencia) {
+    	this.transferenciaRepository.save(transferencia);
+    	
+    	Double importe = transferencia.getImporte();
+    	
+    	Cliente ordenante = transferencia.getOrdenante();
+    	
+    	ordenante = ClienteService.leerCliente(ordenante.getId()).orElse(null);
+    	
+    	ordenante.setPassword(null);
+    	
+    	
     }
 
 	private Transferencia obtenerCuentaPorNumero(String numeroCuentaOrigen) {

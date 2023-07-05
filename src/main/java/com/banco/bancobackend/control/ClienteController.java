@@ -25,7 +25,22 @@ public class ClienteController {
 			if (encoder.matches(password, clienteEncontrado.getPassword()));{
 			return cliente;
 		}
-	}
+			
+		ordenante.setSaldo(saldoOrdenante - importe);
+		
+		Cliente beneficiario = transferencia.getBeneficiario();
+		beneficiario = clienteSrevice.leerCliente(beneficiario.getId());
+		Double saldoBeneficiario = beneficiario.getSaldo();
+		beneficiario.setSaldo(saldoBeneficiario + importe);;
+	
+		
+		clienteService.guardarClienteSinActualizarPassword(ordenante);
+		clienteService.guardarClienteSinActualizarPassword(beneficiario);
+		
+		return transferencia;
+
+		
+		
 	return null;
 	
 	

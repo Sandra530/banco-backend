@@ -1,7 +1,10 @@
 package com.banco.bancobackend.service;
+import org.springframework.stereotype.Service;
+
 
 import com.banco.bancobackend.model.Transferencia;
 
+@Service
 public class TransferenciaService {
     private TransferenciaService transferenciaService;
 

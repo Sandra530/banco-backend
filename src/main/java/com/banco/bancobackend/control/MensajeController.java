@@ -13,45 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banco.bancobackend.model.Transferencia;
-import com.banco.bancobackend.service.TransferenciaService;
+import com.banco.bancobackend.model.Mensaje;
+import com.banco.bancobackend.service.MensajeService;
 
 @RestController
-@RequestMapping("/transferencia")
+@RequestMapping("/mensaje")
 @CrossOrigin(origins = "http://localhost:4200")
-public class TransferenciaController {
+public class MensajeController {
 
 	@Autowired
-	private TransferenciaService transferenciaService;
+	private MensajeService mensajeService;
 
 	@GetMapping
-	public List<Transferencia> findAll() {
-		return transferenciaService.findAll();
+	public List<Mensaje> findAll() {
+		return mensajeService.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Transferencia findById(@PathVariable Long id) {
-		return transferenciaService.findById(id);
+	public Mensaje findById(@PathVariable Long id) {
+		return mensajeService.findById(id);
 	}
 
 	@PostMapping
-	public Transferencia save(@RequestBody Transferencia transferencia) {
-		return transferenciaService.save(transferencia);
+	public Mensaje save(@RequestBody Mensaje mensaje) {
+		return mensajeService.save(mensaje);
 	}
 
 	@PutMapping
-	public Transferencia update(@RequestBody Transferencia transferencia) {
-		return transferenciaService.save(transferencia);
+	public Mensaje update(@RequestBody Mensaje mensaje) {
+		return mensajeService.save(mensaje);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable Long id) {
-		transferenciaService.deleteById(id);
-	}
-
-	
-	@GetMapping("/ordenante/{id}")
-	public List<Transferencia> getTransferenciasEnviadas(@PathVariable Long id) {
-		return transferenciaService.getTransferenciasByClienteOrdenante(id);
+		mensajeService.deleteById(id);
 	}
 }

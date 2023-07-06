@@ -1,63 +1,49 @@
 package com.banco.bancobackend.service;
+
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.banco.bancobackend.model.Cliente;
 import com.banco.bancobackend.model.Transferencia;
+import com.banco.bancobackend.repository.TransferenciaRepository;
 
 @Service
 public class TransferenciaService {
-    private TransferenciaService transferenciaService;
-	private Object transferenciaRepository;
 
-    public TransferenciaService(TransferenciaService transferenciaService) {
-        this.transferenciaService = transferenciaService;
-    }
+	@Autowired
+	private TransferenciaRepository transferenciaRepository;
 
-    public boolean realizarTransferencia(String numeroCuentaOrigen, String numeroCuentaDestino, double monto) {
-        Transferencia cuentaOrigen = transferenciaService.obtenerCuentaPorNumero(numeroCuentaOrigen);
-        Transferencia cuentaDestino = transferenciaService.obtenerCuentaPorNumero(numeroCuentaDestino);
+	public List<Transferencia> findAll() {
+		return transferenciaRepository.findAll();
+	}
 
-        if (cuentaOrigen != null && cuentaDestino != null && cuentaOrigen.getSaldo() >= monto) {
-            cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);
-            cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
-            return true; 
-        } else {
-            return false; 
-        }
-    }
-    
-    public Transferencia guardar (Transferencia transferencia) {
-    	this.transferenciaRepository.save(transferencia);
-    	
-    	Double importe = transferencia.getImporte();
-    	
-    	Cliente ordenante = transferencia.getOrdenante();
-    	
-    	ordenante = ClienteService.leerCliente(ordenante.getId()).orElse(null);
-    	
-    	ordenante.setPassword(null);
-    	
-    	
-    }
+	public Transferencia findById(Long id) {
+		return transferenciaRepository.findById(id).orElse(null);
+	}
 
-	private Transferencia obtenerCuentaPorNumero(String numeroCuentaOrigen) {
-		return null;
+	public Transferencia save(Transferencia transferencia) {
+		return transferenciaRepository.save(transferencia);
+	}
+
+	public void deleteById(Long id) {
+		transferenciaRepository.deleteById(id);
+	}
+
+	public List<Transferencia> getTransferenciasByClienteOrdenante(Long id) {
+		return transferenciaRepository.findByOrdenanteId(id);
+	}
 	
-
+			
+	public Transferencia guardar(Transferencia transferencia) {
 		
-	}
+		this.transferenciaRepository.save(transferencia);
+		
+		
+		return transferencia;
 
-	public String getNumeroCuentaOrigen() {
-		return null;
-	}
-
-	public String getNumeroCuentaDestino() {
-		return null;
-	}
-
-	public double getMonto() {
-		return 0;
+			
 	}
 }
-
-

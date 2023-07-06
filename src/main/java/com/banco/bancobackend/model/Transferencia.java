@@ -1,83 +1,95 @@
 package com.banco.bancobackend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import java.util.Date;
 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 
+@Entity
 public class Transferencia {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	
-	private Integer id;
-	
-	private String usuario;
-	
-	private String correo;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private String password;
-	
-	private Double saldo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@ManyToOne
-	private Gestor gestor;
-	public Transferencia () {
-		
+	@JoinColumn(name = "ordenante_id", nullable = false)
+	private Cliente ordenante;
+
+	@ManyToOne
+	@JoinColumn(name = "beneficiario_id", nullable = false)
+	private Cliente beneficiario;
+
+	@Column(nullable = false)
+	private String concepto;
+
+	@Column(nullable = false)
+	private Double importe;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecha;
+
+	@PrePersist
+	protected void onCreate() {
+		this.fecha = new Date();
 	}
-	
-	
-	public Integer getId() {
+
+	public Long getId() {
 		return id;
-		
 	}
-	public String getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public Double getSaldo() {
-		return saldo;
-	}
-	public void setSaldo(Double saldo) {
-		this.saldo = saldo;
-	}
-	public Gestor getGestor() {
-		return gestor;
-	}
-	public void setGestor(Gestor gestor) {
-		this.gestor = gestor;
-	}
-	public void setId(Integer id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public Cliente getOrdenante() {
+		return ordenante;
+	}
+
+	public void setOrdenante(Cliente ordenante) {
+		this.ordenante = ordenante;
+	}
+
+	public Cliente getBeneficiario() {
+		return beneficiario;
+	}
+
+	public void setBeneficiario(Cliente beneficiario) {
+		this.beneficiario = beneficiario;
+	}
+
+	public String getConcepto() {
+		return concepto;
+	}
+
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
+	}
 
 	public Double getImporte() {
-		return null;
+		return importe;
 	}
 
-
-	public Cliente getOrdenante() {
-		return null;
+	public void setImporte(Double importe) {
+		this.importe = importe;
 	}
-	
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 }
-

@@ -35,6 +35,9 @@ public class TransferenciaService {
 	public List<Transferencia> getTransferenciasByClienteOrdenante(Long id) {
 		return transferenciaRepository.findByOrdenanteId(id);
 	}
+	public List<Transferencia> getTransferenciasByClienteBeneficiario(Long id) {
+		return transferenciaRepository.findByBeneficiarioId(id);
+	}
 	
 			
 	public Transferencia guardar(Transferencia transferencia) {

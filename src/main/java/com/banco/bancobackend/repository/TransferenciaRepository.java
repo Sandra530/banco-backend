@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.banco.bancobackend.model.Transferencia;
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long> {
 	List<Transferencia> findByOrdenanteId(Long id);
+	List<Transferencia> findByBeneficiarioId(Long id);
 	
 }

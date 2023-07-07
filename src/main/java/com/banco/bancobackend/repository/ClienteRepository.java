@@ -8,6 +8,9 @@ import com.banco.bancobackend.model.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	public Optional <Cliente> findFirstByCorreo(String correo);
+	
+	public Optional <Cliente> findFirstByCorreoAndPassword(String correo, String password);
+	
 }
 
 

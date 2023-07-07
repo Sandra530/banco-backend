@@ -54,4 +54,9 @@ public class TransferenciaController {
 	public List<Transferencia> getTransferenciasEnviadas(@PathVariable Long id) {
 		return transferenciaService.getTransferenciasByClienteOrdenante(id);
 	}
+	@GetMapping("/beneficiario/{id}")
+	public List<Transferencia> getTransferenciasRecibidas(@PathVariable Long id) {
+		return transferenciaService.getTransferenciasByClienteBeneficiario(id);
+	}
+
 }
